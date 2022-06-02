@@ -21,5 +21,7 @@ export class WagonComponent implements OnInit {
     };
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('Wagon component initialized');
+  }
 }

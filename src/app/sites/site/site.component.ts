@@ -20,5 +20,7 @@ export class SiteComponent implements OnInit {
     };
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('Site component initialized');
+  }
 }

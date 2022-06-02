@@ -1,27 +1,52 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
-import { WagonComponent } from './wagons/wagon/wagon.component';
-import { SiteComponent } from './sites/site/site.component';
 import { environment } from '../environments/environment';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryService } from './service/in-memory.service';
-import { WagonService } from './service/wagon.service';
 import { AuthService } from './service/auth.service';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { AppRoutingModule } from './app-routing.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RequestService } from './service/request.service';
+
+// export interface AppState {
+//   eventsFeature: EventsFeatureState;
+// 	authorsFeature: AuthorsFeatureState;
+// 	booksFeatur: BooksFeatureState;
+// }
 
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    AppRoutingModule,
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forRoot(InMemoryService)
       : [],
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
   ],
-  declarations: [AppComponent, HelloComponent, WagonComponent, SiteComponent],
+  declarations: [AppComponent, HelloComponent],
   bootstrap: [AppComponent],
-  providers: [InMemoryService, WagonService, AuthService],
+  providers: [InMemoryService, RequestService, AuthService],
 })
 export class AppModule {}
