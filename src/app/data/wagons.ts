@@ -4,7 +4,7 @@ export class WagonTable {
   public static wagons: Wagon[] = [
     {
       id: 1,
-      serial: 'BDbhv',
+      serial: 'Bhv',
       productionDate: '1987',
       trackNr: '505520055557',
       owner: 'MÁV',
@@ -22,7 +22,7 @@ export class WagonTable {
     },
     {
       id: 3,
-      serial: 'BDbhv',
+      serial: 'AcBc',
       productionDate: '1987',
       trackNr: '505520055557',
       owner: 'MÁV',
@@ -31,7 +31,7 @@ export class WagonTable {
     },
     {
       id: 4,
-      serial: 'BDbhv',
+      serial: 'HsGssa',
       productionDate: '1987',
       trackNr: '505520055557',
       owner: 'MÁV',

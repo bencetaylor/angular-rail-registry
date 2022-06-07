@@ -1,3 +1,36 @@
-<p>
-site-list works!
-</p>
+
+<h2>Sites</h2>
+
+<div style="margin-bottom: 10px">
+  <a mat-mini-fab routerLink="/create" color="primary">
+    <mat-icon>add</mat-icon>
+  </a>
+</div>
+
+<div style="margin-bottom: 10px" *ngFor="let site of $sites | async">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <i class="material-icons">site</i>
+      </div>
+      <mat-card-title>
+        <a
+          mat-button
+          [title]="site.name + ' details'"
+          [routerLink]="['/sites', site.id]"
+        >
+          <b>{{ site.name }}</b>
+        </a>
+      </mat-card-title>
+      <mat-card-subtitle>{{ site.owner }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p *ngIf="site.address">
+        {{ site.address }}
+      </p>
+    </mat-card-content>
+    <!-- <mat-card-actions>
+    <app-event-social [site]="site" (notify)="onNotify($site)"></app-event-social>
+  </mat-card-actions> -->
+  </mat-card>
+</div>

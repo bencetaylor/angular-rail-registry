@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SiteService } from '../../service/site.service';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Site } from '../site/site';
 
 @Component({
@@ -18,17 +18,21 @@ export class SiteListComponent implements OnInit {
     'actions',
   ];
 
-  // $sites: Observable<Site[]> = this.store.pipe(select(selectSites));
-
   $sites: Observable<Site[]>;
+  sites: any[];
 
   constructor(private siteService: SiteService, private store: Store) {}
 
-  ngOnInit() {
-    this.$sites.subscribe(this.siteService.getSites);
-    this.$sites.forEach((list) => {
-      list.forEach((s) => console.log(s));
+  initializeSites() {
+    this.$sites = this.siteService.getSites();
+    this.$sites.subscribe((result) => {
+      this.sites = result;
     });
+  }
+
+  ngOnInit() {
+    this.initializeSites();
+    // this.$sites.forEach((site) => console.log(site));
   }
 
   // onDelete(site: Site): void {

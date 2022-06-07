@@ -4,34 +4,31 @@ import { Observable } from 'rxjs';
 import { Site } from '../sites/site/site';
 import { RequestService } from './request.service';
 
-const AUTHOR_URL = 'api/sites';
+const SITE_URL = 'api/sites';
 
 @Injectable()
 export class SiteService {
   constructor(private requestService: RequestService) {}
 
-  getSites(): Observable<Site[]> {
+  getSites(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    return this.requestService.get<Site[]>(
-      `${AUTHOR_URL}/?deleted=false`,
-      httpOptions
-    );
+    return this.requestService.get<any>(`${SITE_URL}`, httpOptions);
   }
 
   getSite(siteId: number): Observable<any> {
-    return this.requestService.get(`${AUTHOR_URL}/${siteId}`);
+    return this.requestService.get(`${SITE_URL}/${siteId}`);
   }
 
   createSite(site: Site): Observable<any> {
-    return this.requestService.post(`${AUTHOR_URL}/`, site);
+    return this.requestService.post(`${SITE_URL}/`, site);
   }
 
   updateSite(site: Site): Observable<any> {
-    return this.requestService.put(`${AUTHOR_URL}/`, site);
+    return this.requestService.put(`${SITE_URL}/`, site);
   }
 
   // deleteAuthor(author: Site): Observable<any> {
