@@ -14,6 +14,7 @@ import { WagonListComponent } from './wagon-list/wagon-list.component';
 import { WagonUpdateComponent } from './wagon-update/wagon-update.component';
 import { WagonCreateComponent } from './wagon-create/wagon-create.component';
 import { WagonService } from '../service/wagon.service';
+import { TracknumberPipe } from '../pipes/tracknumber.pipe';
 
 @NgModule({
   imports: [
@@ -28,7 +29,7 @@ import { WagonService } from '../service/wagon.service';
     MatInputModule,
     MatProgressSpinnerModule,
     MatTableModule,
-    // TracknumberPipe
+
     // StoreModule.forFeature(fromBooks.booksFeatureKey, fromBooks.booksReducer),
     // EffectsModule.forFeature([BookEffects])
   ],
@@ -37,6 +38,7 @@ import { WagonService } from '../service/wagon.service';
     WagonListComponent,
     WagonUpdateComponent,
     WagonCreateComponent,
+    TracknumberPipe,
   ],
   providers: [WagonService],
 })

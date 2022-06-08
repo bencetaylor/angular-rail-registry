@@ -19,26 +19,27 @@ export interface PeriodicElement {
 export class WagonListComponent implements OnInit {
   constructor(private wagonService: WagonService) {}
 
-  displayedColumns: string[] = [
-    'id',
-    'serial',
-    'productionDate',
-    'trackNr',
-    'owner',
-    'siteId',
-    'status',
-  ];
+  displayedColumns: string[] = ['serial', 'trackNr', 'siteId', 'actions'];
   $wagons: Observable<Wagon[]>;
   wagons: any[];
+  showDeleted: boolean = false;
 
   initializeWagons() {
-    this.$wagons = this.wagonService.getWagons();
+    this.$wagons = this.wagonService.getWagons(this.showDeleted);
     this.$wagons.subscribe((result) => {
-      this.wagons = result;
+      this.wagons = result.filter((wagon) => wagon.status);
     });
   }
 
+  // listWagons() {
+  //   this.wagons.forEach((wagon) => console.log(wagon));
+  // }
+
   ngOnInit() {
     this.initializeWagons();
+  }
+
+  onDelete(wagon: Wagon) {
+    console.log('Delete wagon: ' + wagon.id);
   }
 }

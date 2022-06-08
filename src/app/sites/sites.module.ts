@@ -15,6 +15,8 @@ import { SiteComponent } from './site/site.component';
 import { SiteListComponent } from './site-list/site-list.component';
 import { SiteUpdateComponent } from './site-update/site-update.component';
 import { SiteService } from '../service/site.service';
+import { MatSortModule } from '@angular/material/sort';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
@@ -29,6 +31,8 @@ import { SiteService } from '../service/site.service';
     MatInputModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    MatSortModule,
+    MatCheckboxModule,
     // StoreModule.forFeature(fromBooks.booksFeatureKey, fromBooks.booksReducer),
     // EffectsModule.forFeature([BookEffects])
   ],

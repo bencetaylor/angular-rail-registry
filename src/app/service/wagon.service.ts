@@ -9,12 +9,16 @@ const WAGON_URL = 'api/wagons';
 export class WagonService {
   constructor(private requestService: RequestService) {}
 
-  getWagons(): Observable<any> {
+  getWagons(showDeleted: boolean): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
-    return this.requestService.get<any>(`${WAGON_URL}`, httpOptions);
+    var url = `${WAGON_URL}`;
+    if (!showDeleted) {
+      url = `${WAGON_URL}/?status=true`;
+    }
+    return this.requestService.get<any>(url, httpOptions);
   }
 }

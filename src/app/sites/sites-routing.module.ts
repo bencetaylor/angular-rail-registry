@@ -5,6 +5,7 @@ import { SiteComponent } from './site/site.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { SiteListComponent } from './site-list/site-list.component';
 import { SiteUpdateComponent } from './site-update/site-update.component';
+import { CreateSiteComponent } from './create-site/create-site.component';
 
 const routes: Routes = [
   {
@@ -24,10 +25,10 @@ const routes: Routes = [
             path: 'edit/:authorId',
             component: SiteUpdateComponent,
           },
-          // {
-          //   path: 'create',
-          //   component: AuthorsCreateComponent
-          // }
+          {
+            path: 'create',
+            component: CreateSiteComponent,
+          },
         ],
       },
     ],

@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { RequestService } from './service/request.service';
+import { TracknumberPipe } from './pipes/tracknumber.pipe';
 
 // export interface AppState {
 //   eventsFeature: EventsFeatureState;

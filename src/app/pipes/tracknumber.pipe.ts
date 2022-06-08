@@ -12,9 +12,9 @@ export class TracknumberPipe implements PipeTransform {
       ' ' +
       value.substring(2, 4) +
       ' ' +
-      value.substring(4, 8) +
+      value.substring(4, 9) +
       ' ' +
-      value.substring(8, 9);
+      value.substring(9);
     return this.formatted;
   }
 }

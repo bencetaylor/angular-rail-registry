@@ -21,7 +21,7 @@ const routes: Routes = [
             component: WagonListComponent,
           },
           {
-            path: 'update/:eventId',
+            path: 'update/:wagonId',
             component: WagonUpdateComponent,
           },
           {
