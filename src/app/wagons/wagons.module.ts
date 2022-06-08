@@ -28,6 +28,7 @@ import { WagonService } from '../service/wagon.service';
     MatInputModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    // TracknumberPipe
     // StoreModule.forFeature(fromBooks.booksFeatureKey, fromBooks.booksReducer),
     // EffectsModule.forFeature([BookEffects])
   ],

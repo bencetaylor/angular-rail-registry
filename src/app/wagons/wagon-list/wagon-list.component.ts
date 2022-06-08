@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WagonService } from '../../service/wagon.service';
 import { Wagon } from '../wagon/wagon';
+import { TracknumberPipe } from '../../pipes/tracknumber.pipe';
 
 export interface PeriodicElement {
   serial: string;
