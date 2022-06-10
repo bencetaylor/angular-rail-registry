@@ -23,6 +23,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { RequestService } from './service/request.service';
 import { TracknumberPipe } from './pipes/tracknumber.pipe';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 // export interface AppState {
 //   eventsFeature: EventsFeatureState;
@@ -47,8 +51,12 @@ import { TracknumberPipe } from './pipes/tracknumber.pipe';
     MatCardModule,
     MatIconModule,
     MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDialogModule,
     MatTableModule,
     MatProgressSpinnerModule,
+    MatExpansionModule,
   ],
   declarations: [AppComponent, HelloComponent],
   bootstrap: [AppComponent],

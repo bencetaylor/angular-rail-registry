@@ -1,46 +1,131 @@
-<p>wagon-update works!</p>
-
+<h2>Edit wagon: {{ wagon.serial }}</h2>
 <p>
-  <a mat-button routerLink="/wagons">
-    <b>Back to Wagons</b>
+  <a mat-button routerLink="/wagon">
+    <b>Back to wagon</b>
   </a>
 </p>
 <form [formGroup]="wagonForm" (ngSubmit)="onSubmit(wagonForm.getRawValue())">
-  <div>
+  <!-- <div>
     <mat-form-field appearance="outline">
-      <mat-label>Wagon ID</mat-label>
-      <input type="number" matInput placeholder="Id" formControlName="id" />
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Author's name</mat-label>
-      <input matInput placeholder="Name" formControlName="name" />
-      <mat-hint>Give the author a name</mat-hint>
-      <!-- <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error> -->
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Author's birth year</mat-label>
+      <mat-label>{{ wagon.id }}</mat-label>
       <input
-        type="number"
         matInput
-        placeholder="Birth year"
-        formControlName="birthYear"
+        placeholder="{{ wagon.id }}"
+        formControlName="id"
+        [(ngModel)]="wagon.id"
+        readonly
       />
-      <mat-hint>Give the author a birth year</mat-hint>
-      <!-- <mat-error *ngIf="birthYear.invalid">{{getDescriptionErrorMessage()}}</mat-error> -->
+      <mat-hint>Wagon's id</mat-hint>
+    </mat-form-field>
+  </div> -->
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Serial</mat-label>
+      <input
+        matInput
+        placeholder="{{ wagon.serial }}"
+        formControlName="serial"
+        [(ngModel)]="wagon.serial"
+      />
+      <mat-hint>{{ wagon.serial }}</mat-hint>
+      <mat-error *ngIf="serial.invalid">{{
+        getSerialErrorMessage()
+      }}</mat-error>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline">
-      <mat-label>Author's nationality</mat-label>
-      <input matInput placeholder="Start" formControlName="nationality" />
-      <mat-hint>Give the author a nationality</mat-hint>
-      <!-- <mat-error *ngIf="nationality.invalid">{{getStartErrorMessage()}}</mat-error> -->
+      <mat-label>Production date</mat-label>
+      <input
+        matInput
+        placeholder="{{ wagon.productionDate }}"
+        formControlName="productionDate"
+        [(ngModel)]="wagon.productionDate"
+      />
+      <mat-error *ngIf="productionDate.invalid">{{
+        getProductionDateErrorMessage()
+      }}</mat-error>
+      <mat-hint>{{ wagon.productionDate }}</mat-hint>
     </mat-form-field>
   </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Track number</mat-label>
+      <input
+        matInput
+        placeholder="{{ wagon.trackNr | tracknumber }}"
+        formControlName="trackNr"
+        [(ngModel)]="wagon.trackNr"
+      />
+      <mat-error *ngIf="trackNr.invalid">{{
+        getTrackNrErrorMessage()
+      }}</mat-error>
+      <mat-hint>{{ wagon.trackNr | tracknumber }}</mat-hint>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Owner</mat-label>
+      <input
+        matInput
+        placeholder="{{ wagon.owner }}"
+        formControlName="owner"
+        [(ngModel)]="wagon.owner"
+      />
+      <mat-error *ngIf="owner.invalid">{{ getOwnerErrorMessage() }}</mat-error>
+      <mat-hint>{{ wagon.owner }}</mat-hint>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Site</mat-label>
+      <mat-select
+        matInput
+        placeholder="{{ wagon.siteId }}"
+        formControlName="siteId"
+        [(ngModel)]="wagon.siteId"
+      >
+        <ng-container *ngFor="let site of sites">
+          <!-- <mat-option *ngIf="site.is_deleted === false" [value]="site.id">{{
+        site.id
+      }}</mat-option> -->
+          <mat-option [value]="site.id">
+            {{ site.name }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+      <mat-hint>{{ wagon.siteId }}</mat-hint>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Is active?</mat-label>
+      <mat-select matInput formControlName="status" [(ngModel)]="wagon.status">
+        <mat-option [value]="true">Yes</mat-option>
+        <mat-option [value]="false">No</mat-option>
+      </mat-select>
+      <mat-hint>{{ wagon.status }}</mat-hint>
+    </mat-form-field>
+  </div>
+  <!-- <div>
+    <mat-form-field appearance="outline">
+      <mat-label>{{ wagon.siteName }}</mat-label>
+      <mat-select
+        matInput
+        placeholder="{{ wagon.siteName }}"
+        formControlName="siteName"
+        [(ngModel)]="wagon.siteName"
+      >
+        <ng-container *ngFor="let site of sites">
+          <mat-option *ngIf="site.is_deleted === false" [value]="site.name">{{
+            site.name
+          }}</mat-option>
+        </ng-container>
+      </mat-select>
+      <mat-hint>Wagon's site name</mat-hint>
+    </mat-form-field>
+  </div> -->
+  <br />
   <button mat-raised-button color="primary" type [disabled]="wagonForm.invalid">
     Update
   </button>
