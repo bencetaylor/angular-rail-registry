@@ -1,8 +1,9 @@
 <div style="margin-bottom: 10px">
-  <a mat-mini-fab routerLink="/wagons/create" color="primary">
-    <mat-icon>add</mat-icon>
-  </a>
+  <button mat-flat-button color="primary" routerLink="/wagons/create">
+    Create
+  </button>
 </div>
+
 <table mat-table [dataSource]="$wagons | async" class="mat-elevation-z8">
   <!-- <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>ID</th>

@@ -21,4 +21,8 @@ export class WagonService {
     }
     return this.requestService.get<any>(url, httpOptions);
   }
+
+  getWagon(wagonId: number): Observable<any> {
+    return this.requestService.get(`${WAGON_URL}/${wagonId}`);
+  }
 }
