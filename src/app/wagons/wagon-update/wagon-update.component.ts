@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
-import { SiteService } from '../../service/site.service';
 import { WagonService } from '../../service/wagon.service';
 import { Wagon } from '../wagon/wagon';
 import { TracknumberPipe } from '../../pipes/tracknumber.pipe';
@@ -16,13 +15,29 @@ import { Site } from '../../sites/site/site';
 export class WagonUpdateComponent implements OnInit {
   wagonForm: FormGroup;
   wagon: Wagon;
-  sites: Site[];
+  sites: Site[] = [
+    {
+      id: 1,
+      name: 'Budapest',
+      owner: 'MÁV',
+      address: 'Budapest',
+      zip: 1000,
+      status: true,
+    },
+    {
+      id: 2,
+      name: 'Debrecen',
+      owner: 'MÁV',
+      address: 'Debrecen',
+      zip: 2000,
+      status: true,
+    },
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private wagonService: WagonService,
-    private siteService: SiteService,
     private router: Router /*private store: Store*/
   ) {}
 
@@ -35,15 +50,20 @@ export class WagonUpdateComponent implements OnInit {
       )
       .subscribe((wagon) => {
         this.wagon = wagon;
-        console.log(wagon);
       });
-
-    this.siteService.getSites().subscribe((sites) => (this.sites = sites));
 
     this.wagonForm = this.formBuilder.group({
       id: '',
       serial: ['', [Validators.required, Validators.maxLength(50)]],
-      productionDate: ['', [Validators.required]],
+      productionDate: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/
+          ),
+        ],
+      ],
       trackNr: ['', [Validators.required, Validators.maxLength(50)]],
       owner: ['', [Validators.required, Validators.maxLength(50)]],
       siteId: ['', [Validators.required]],
@@ -53,7 +73,12 @@ export class WagonUpdateComponent implements OnInit {
   }
 
   onSubmit(wagonData: any) {
-    console.log(wagonData);
+    this.wagonService.updateWagon(wagonData).subscribe((res) => {
+      this.wagon = res;
+    });
+
+    // alert('Update successful!');
+    // this.router.navigate(['/wagons']);
   }
 
   // Validators
@@ -110,7 +135,7 @@ export class WagonUpdateComponent implements OnInit {
     console.log('Debug wagon-update getProductionDateErrorMessage called');
     if (this.productionDate.dirty || this.productionDate.touched) {
       if (this.productionDate.hasError('required'))
-        return 'You must enter a value!';
+        return 'Please enter the date in YYYY-MM-DD format!';
     }
     return '';
   }

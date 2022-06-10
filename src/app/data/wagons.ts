@@ -5,7 +5,7 @@ export class WagonTable {
     {
       id: 1,
       serial: 'Bhv',
-      productionDate: '1987',
+      productionDate: '1987-10-12',
       trackNr: '505520-05555-7',
       owner: 'MÁV',
       siteId: 1,
@@ -14,7 +14,7 @@ export class WagonTable {
     {
       id: 2,
       serial: 'BDbhv',
-      productionDate: '1987',
+      productionDate: '1973-05-30',
       trackNr: '505520-05555-7',
       owner: 'MÁV',
       siteId: 1,
@@ -23,7 +23,7 @@ export class WagonTable {
     {
       id: 3,
       serial: 'AcBc',
-      productionDate: '1987',
+      productionDate: '1991-03-21',
       trackNr: '505520-05555-7',
       owner: 'MÁV',
       siteId: 2,
@@ -32,7 +32,7 @@ export class WagonTable {
     {
       id: 4,
       serial: 'HsGssa',
-      productionDate: '1987',
+      productionDate: '1983-12-02',
       trackNr: '505520-05555-7',
       owner: 'MÁV',
       siteId: 2,

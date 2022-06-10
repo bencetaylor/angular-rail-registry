@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Wagon } from '../wagons/wagon/wagon';
 import { RequestService } from './request.service';
 
 const WAGON_URL = 'api/wagons';
@@ -24,5 +25,11 @@ export class WagonService {
 
   getWagon(wagonId: number): Observable<any> {
     return this.requestService.get(`${WAGON_URL}/${wagonId}`);
+  }
+
+  updateWagon(wagon: Wagon): Observable<any> {
+    console.log('Update wagon');
+    console.log(wagon);
+    return this.requestService.put(`${WAGON_URL}/`, wagon);
   }
 }
