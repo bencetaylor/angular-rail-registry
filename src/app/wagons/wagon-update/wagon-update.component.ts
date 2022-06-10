@@ -6,6 +6,7 @@ import { WagonService } from '../../service/wagon.service';
 import { Wagon } from '../wagon/wagon';
 import { TracknumberPipe } from '../../pipes/tracknumber.pipe';
 import { Site } from '../../sites/site/site';
+import { SiteService } from '../../service/site.service';
 
 @Component({
   selector: 'app-wagon-update',
@@ -15,29 +16,13 @@ import { Site } from '../../sites/site/site';
 export class WagonUpdateComponent implements OnInit {
   wagonForm: FormGroup;
   wagon: Wagon;
-  sites: Site[] = [
-    {
-      id: 1,
-      name: 'Budapest',
-      owner: 'MÁV',
-      address: 'Budapest',
-      zip: 1000,
-      status: true,
-    },
-    {
-      id: 2,
-      name: 'Debrecen',
-      owner: 'MÁV',
-      address: 'Debrecen',
-      zip: 2000,
-      status: true,
-    },
-  ];
+  sites: Site[];
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private wagonService: WagonService,
+    private siteService: SiteService,
     private router: Router /*private store: Store*/
   ) {}
 
@@ -51,6 +36,10 @@ export class WagonUpdateComponent implements OnInit {
       .subscribe((wagon) => {
         this.wagon = wagon;
       });
+
+    this.siteService.getSites().subscribe((res) => {
+      this.sites = res;
+    });
 
     this.wagonForm = this.formBuilder.group({
       id: '',
