@@ -30,6 +30,6 @@ export class WagonService {
   updateWagon(wagon: Wagon): Observable<any> {
     console.log('Update wagon');
     console.log(wagon);
-    return this.requestService.put(`${WAGON_URL}/`, wagon);
+    return this.requestService.put(`${WAGON_URL}`, wagon);
   }
 }

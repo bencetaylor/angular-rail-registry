@@ -73,15 +73,20 @@ export class WagonUpdateComponent implements OnInit {
   }
 
   onSubmit(wagonData: any) {
-    this.wagonService.updateWagon(wagonData).subscribe((res) => {
-      this.wagon = res;
-    });
-
-    // alert('Update successful!');
-    // this.router.navigate(['/wagons']);
+    this.wagonService.updateWagon(wagonData).subscribe(
+      (res) => {
+        this.wagon = res;
+        alert('Update was successful!');
+        this.router.navigate(['/wagons']);
+      },
+      (error) => {
+        alert('Update failed!');
+        console.log(error);
+      }
+    );
   }
 
-  // Validators
+  /* Validators */
   get serial() {
     return this.wagonForm.get('serial');
   }
@@ -100,6 +105,8 @@ export class WagonUpdateComponent implements OnInit {
   // get siteName() {
   //   return this.siteName.get('siteName');
   // }
+
+  /* Messages */
 
   getSerialErrorMessage() {
     console.log('Debug wagon-update getSerialErrorMessage called');
