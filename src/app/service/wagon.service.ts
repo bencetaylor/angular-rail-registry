@@ -32,4 +32,10 @@ export class WagonService {
     console.log(wagon);
     return this.requestService.put(`${WAGON_URL}`, wagon);
   }
+
+  createWagon(wagon: Wagon): Observable<any> {
+    console.log('Create wagon');
+    console.log(wagon);
+    return this.requestService.post(`${WAGON_URL}`, wagon);
+  }
 }
