@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
+import { CreateSiteComponent } from './create-site/create-site.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,12 @@ import { MatMenuModule } from '@angular/material/menu';
     // StoreModule.forFeature(fromBooks.booksFeatureKey, fromBooks.booksReducer),
     // EffectsModule.forFeature([BookEffects])
   ],
-  declarations: [SiteComponent, SiteListComponent, SiteUpdateComponent],
+  declarations: [
+    SiteComponent,
+    SiteListComponent,
+    SiteUpdateComponent,
+    CreateSiteComponent,
+  ],
   providers: [SiteService],
 })
 export class SitesModule {}
