@@ -17,6 +17,10 @@ import { SiteUpdateComponent } from './site-update/site-update.component';
 import { SiteService } from '../service/site.service';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   imports: [
@@ -29,10 +33,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCardModule,
     MatIconModule,
     MatInputModule,
-    MatProgressSpinnerModule,
-    MatTableModule,
+    MatFormFieldModule,
+    MatSelectModule,
     MatSortModule,
     MatCheckboxModule,
+    MatExpansionModule,
+    MatTableModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
     // StoreModule.forFeature(fromBooks.booksFeatureKey, fromBooks.booksReducer),
     // EffectsModule.forFeature([BookEffects])
   ],

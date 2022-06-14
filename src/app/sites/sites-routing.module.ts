@@ -22,7 +22,7 @@ const routes: Routes = [
             component: SiteListComponent,
           },
           {
-            path: 'edit/:authorId',
+            path: 'update/:siteId',
             component: SiteUpdateComponent,
           },
           {

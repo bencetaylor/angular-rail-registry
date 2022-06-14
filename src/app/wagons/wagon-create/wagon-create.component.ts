@@ -49,8 +49,11 @@ export class WagonCreateComponent implements OnInit {
 
   onCreate(wagon: Wagon) {
     wagon.status = true;
-    this.wagonService.createWagon(wagon);
-    this.wagonForm.reset();
-    this.router.navigate(['/wagons']);
+    this.wagonService.createWagon(wagon).subscribe((res) => {
+      console.log('form submitted' + JSON.stringify(wagon));
+      this.wagonForm.reset();
+      alert('Update was successful!');
+      this.router.navigate(['/wagons']);
+    });
   }
 }
