@@ -36,15 +36,12 @@ export class WagonListComponent implements OnInit {
     });
   }
 
-  // listWagons() {
-  //   this.wagons.forEach((wagon) => console.log(wagon));
-  // }
-
   ngOnInit() {
     this.initializeWagons();
   }
 
   onDelete(wagon: Wagon) {
-    console.log('Delete wagon: ' + wagon.id);
+    wagon.status = false;
+    this.wagonService.updateWagon(wagon);
   }
 }

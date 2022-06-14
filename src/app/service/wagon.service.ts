@@ -38,4 +38,10 @@ export class WagonService {
     console.log(wagon);
     return this.requestService.post(`${WAGON_URL}`, wagon);
   }
+
+  // deleteWagon(wagon: Wagon): Observable<any> {
+  //   console.log('Delete wagon ' + wagon.id);
+  //   wagon.status = false;
+  //   return this.requestService.put(`${WAGON_URL}`, wagon);
+  // }
 }
