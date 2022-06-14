@@ -4,6 +4,7 @@ import { WagonService } from '../../service/wagon.service';
 import { Wagon } from '../wagon/wagon';
 import { TracknumberPipe } from '../../pipes/tracknumber.pipe';
 import { SiteService } from '../../service/site.service';
+import { switchMap } from 'rxjs/operators';
 
 export interface PeriodicElement {
   serial: string;
@@ -40,8 +41,13 @@ export class WagonListComponent implements OnInit {
     this.initializeWagons();
   }
 
-  onDelete(wagon: Wagon) {
+  onDelete(wagon: Wagon): void {
     wagon.status = false;
-    this.wagonService.updateWagon(wagon);
+    this.$wagons = this.wagonService
+      .deleteWagon(wagon)
+      .pipe(switchMap((res) => this.wagonService.getWagons(this.showDeleted)));
+    this.$wagons.subscribe((res) => {
+      this.wagons = res;
+    });
   }
 }
