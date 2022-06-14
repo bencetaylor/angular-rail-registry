@@ -9,7 +9,7 @@ export class WagonTable {
       trackNr: '505520-05555-7',
       owner: 'MÁV',
       siteId: 1,
-      status: false,
+      status: true,
     },
     {
       id: 2,
@@ -36,7 +36,7 @@ export class WagonTable {
       trackNr: '505520-05555-7',
       owner: 'MÁV',
       siteId: 2,
-      status: false,
+      status: true,
     },
   ];
 }

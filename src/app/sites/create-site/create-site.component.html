@@ -5,55 +5,49 @@
     <b>Back to sites</b>
   </a>
 </p>
-<!-- <form [formGroup]="siteForm" (ngSubmit)="onSubmit(siteForm.getRawValue())">
-  <div>
+<form [formGroup]="siteForm" (ngSubmit)="onSubmit(siteForm.getRawValue())">
+  <div hidden>
     <mat-form-field appearance="outline">
       <mat-label>ID</mat-label>
       <input matInput placeholder="id" formControlName="id" readonly />
-      <mat-hint>site's id</mat-hint>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
       <input matInput placeholder="name" formControlName="name" />
-      <mat-hint>Give the site's name</mat-hint>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Owner</mat-label>
       <input matInput placeholder="owner" formControlName="owner" />
-      <mat-hint>Give the site's Owner</mat-hint>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Address</mat-label>
       <input matInput placeholder="address" formControlName="address" />
-      <mat-hint>Give the site's address</mat-hint>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Zip</mat-label>
       <input matInput placeholder="zip" formControlName="zip" />
-      <mat-hint>Give the site's zip code</mat-hint>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline">
-      <mat-label>Status</mat-label>
+      <mat-label>Is active?</mat-label>
       <mat-select matInput formControlName="status">
-        <mat-option [value]="true">true</mat-option>
-        <mat-option [value]="false">false</mat-option>
+        <mat-option [value]="true">Yes</mat-option>
+        <mat-option [value]="false">No</mat-option>
       </mat-select>
-      <mat-hint>Is the site deleted?</mat-hint>
     </mat-form-field>
   </div>
   <br />
   <button mat-raised-button color="primary" type [disabled]="siteForm.invalid">
-    Update
+    Create
   </button>
-</form> -->
+</form>
 <p>Form Status: {{ siteForm.status }}</p>
