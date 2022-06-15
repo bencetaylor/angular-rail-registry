@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Wagon } from '../wagons/wagon/wagon';
 import { RequestService } from './request.service';
 
@@ -42,5 +42,13 @@ export class WagonService {
   deleteWagon(wagon: Wagon) {
     wagon = Object.assign({}, wagon, { status: false });
     return this.updateWagon(wagon);
+  }
+
+  serialExists(serial: string): Observable<boolean> {
+    return this.getWagons(true).pipe(
+      map((wagons) => {
+        return wagons.findIndex((wagon) => wagon.serial === serial) !== -1;
+      })
+    );
   }
 }

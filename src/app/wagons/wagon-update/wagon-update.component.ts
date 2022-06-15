@@ -8,6 +8,7 @@ import { TracknumberPipe } from '../../pipes/tracknumber.pipe';
 import { Site } from '../../sites/site/site';
 import { SiteService } from '../../service/site.service';
 import { TrackNumberValidator } from '../../validators/tracknumber.validator';
+import { WagonSerialValidator } from '../../validators/wagon-serial.validator';
 
 @Component({
   selector: 'app-wagon-update',
@@ -25,7 +26,8 @@ export class WagonUpdateComponent implements OnInit {
     private wagonService: WagonService,
     private siteService: SiteService,
     private router: Router /*private store: Store*/,
-    private tracknumberValidator: TrackNumberValidator
+    private tracknumberValidator: TrackNumberValidator,
+    private serialValidator: WagonSerialValidator
   ) {}
 
   ngOnInit() {
@@ -63,7 +65,10 @@ export class WagonUpdateComponent implements OnInit {
             Validators.maxLength(12),
             Validators.minLength(12),
           ],
-          asyncValidators: this.tracknumberValidator.tracknumberValidatorFn(),
+          asyncValidators: [
+            this.tracknumberValidator.tracknumberValidatorFn(),
+            this.serialValidator.serialValidatorFn(),
+          ],
           updateOn: 'blur',
         },
       ],
