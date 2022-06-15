@@ -58,9 +58,7 @@ export class WagonUpdateComponent implements OnInit {
       trackNr: [
         '',
         {
-          validators: [ 
-            Validators.required, Validators.maxLength(14)
-          ],
+          validators: [Validators.required, Validators.maxLength(14)],
           asyncValidators: this.tracknumberValidator.tracknumberValidatorFn(),
           updateOn: 'blur',
         },
@@ -134,6 +132,8 @@ export class WagonUpdateComponent implements OnInit {
       if (this.trackNr.hasError('required')) return 'You must enter a value!';
       if (this.trackNr.hasError('maxlength'))
         return 'You can enter at most 50 characters!';
+      if (this.trackNr.hasError('trackNr'))
+        return 'Track number checksum failed!';
     }
     return '';
   }

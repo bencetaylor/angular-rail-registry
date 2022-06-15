@@ -40,7 +40,13 @@ export class SiteListComponent implements OnInit {
   }
 
   onDelete(site: Site) {
+    // TODO implement soft delete and check if there're wagons assigned
     console.log('Site deleted: ' + site.id);
+  }
+
+  onReset(site: Site) {
+    // TODO implement reset
+    console.log('Site reset: ' + site.id);
   }
 
   @ViewChild(MatTable) table: MatTable<PeriodicElement>;

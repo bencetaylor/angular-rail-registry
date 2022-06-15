@@ -54,6 +54,16 @@
       >
         Delete
       </button>
+
+      <button
+        mat-flat-button
+        (click)="onReset(element)"
+        aria-label="Reset"
+        aria-hidden="false"
+        [disabled]="element.status"
+      >
+        Reset
+      </button>
     </td>
   </ng-container>
 

@@ -6,7 +6,9 @@
 <mat-card>
   <mat-card-content>
     <section>
-      <mat-checkbox [(ngModel)]="showDeleted">Show deleted wagons</mat-checkbox>
+      <mat-checkbox (change)="showDeletedFn($event)"
+        >Show deleted wagons</mat-checkbox
+      >
     </section>
   </mat-card-content>
 </mat-card>

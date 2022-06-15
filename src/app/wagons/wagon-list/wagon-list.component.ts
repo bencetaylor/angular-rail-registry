@@ -7,6 +7,7 @@ import { SiteService } from '../../service/site.service';
 import { switchMap } from 'rxjs/operators';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 export interface PeriodicElement {
   serial: string;
@@ -33,17 +34,21 @@ export class WagonListComponent implements OnInit {
   showDeleted: boolean = false;
   sites: any[];
 
-  // @ViewChild('empTbSort') empTbSort = new MatSort();
-
   initializeWagons() {
     this.$wagons = this.wagonService.getWagons(this.showDeleted);
     this.$wagons.subscribe((result) => {
-      // this.dataSource = new MatTableDataSource(result);
-      this.wagons = result.filter((wagon) => wagon.status);
+      this.wagons = result;
+      console.log(this.wagons);
     });
   }
 
   ngOnInit() {
+    this.initializeWagons();
+  }
+
+  showDeletedFn(event: MatCheckboxChange) {
+    console.log(event.checked);
+    this.showDeleted = event.checked;
     this.initializeWagons();
   }
 

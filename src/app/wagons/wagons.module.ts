@@ -23,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { SiteService } from '../service/site.service';
+import { TrackNumberValidator } from '../validators/tracknumber.validator';
 
 @NgModule({
   imports: [
@@ -53,6 +54,6 @@ import { SiteService } from '../service/site.service';
     WagonCreateComponent,
     TracknumberPipe,
   ],
-  providers: [WagonService, SiteService],
+  providers: [WagonService, SiteService, TrackNumberValidator],
 })
 export class WagonsModule {}

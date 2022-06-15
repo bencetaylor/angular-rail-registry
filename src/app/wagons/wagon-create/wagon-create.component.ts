@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SiteService } from '../../service/site.service';
 import { WagonService } from '../../service/wagon.service';
 import { Site } from '../../sites/site/site';
+import { TrackNumberValidator } from '../../validators/tracknumber.validator';
 import { Wagon } from '../wagon/wagon';
 
 @Component({
@@ -19,7 +20,8 @@ export class WagonCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private wagonService: WagonService,
-    private siteService: SiteService
+    private siteService: SiteService,
+    private tracknumberValidator: TrackNumberValidator
   ) {}
 
   ngOnInit() {
@@ -35,7 +37,14 @@ export class WagonCreateComponent implements OnInit {
           ),
         ],
       ],
-      trackNr: ['', [Validators.required, Validators.maxLength(50)]],
+      trackNr: [
+        '',
+        {
+          validators: [Validators.required, Validators.maxLength(14)],
+          asyncValidators: this.tracknumberValidator.tracknumberValidatorFn(),
+          updateOn: 'blur',
+        },
+      ],
       owner: ['', [Validators.required, Validators.maxLength(50)]],
       siteId: ['', [Validators.required]],
       status: true,
@@ -55,5 +64,73 @@ export class WagonCreateComponent implements OnInit {
       alert('Update was successful!');
       this.router.navigate(['/wagons']);
     });
+  }
+
+  /* Validators */
+  get serial() {
+    return this.wagonForm.get('serial');
+  }
+  get owner() {
+    return this.wagonForm.get('owner');
+  }
+  get trackNr() {
+    return this.wagonForm.get('trackNr');
+  }
+  get productionDate() {
+    return this.wagonForm.get('productionDate');
+  }
+  get siteId() {
+    return this.siteId.get('siteId');
+  }
+  // get siteName() {
+  //   return this.siteName.get('siteName');
+  // }
+
+  /* Messages */
+
+  getSerialErrorMessage() {
+    if (this.serial.dirty || this.serial.touched) {
+      if (this.serial.hasError('required')) return 'You must enter a value!';
+      if (this.serial.hasError('maxlength'))
+        return 'You can enter at most 5 characters!';
+    }
+    return '';
+  }
+
+  getOwnerErrorMessage() {
+    if (this.owner.dirty || this.owner.touched) {
+      if (this.owner.hasError('required')) return 'You must enter a value!';
+      if (this.owner.hasError('maxlength'))
+        return 'You can enter at most 50 characters!';
+    }
+    return '';
+  }
+
+  getTrackNrErrorMessage() {
+    if (this.trackNr.dirty || this.trackNr.touched) {
+      if (this.trackNr.hasError('required')) return 'You must enter a value!';
+      if (this.trackNr.hasError('maxlength'))
+        return 'You can enter at most 50 characters!';
+      if (this.trackNr.hasError('trackNr'))
+        return 'Track number checksum failed!';
+    }
+    return '';
+  }
+
+  getProductionDateErrorMessage() {
+    if (this.productionDate.dirty || this.productionDate.touched) {
+      if (this.productionDate.hasError('required'))
+        return 'Please enter a date!';
+      if (this.productionDate.hasError('pattern'))
+        return 'Please enter the date in YYYY-MM-DD format!';
+    }
+    return '';
+  }
+
+  getSiteIdErrorMessage() {
+    if (this.siteId.dirty || this.siteId.touched) {
+      if (this.siteId.hasError('required')) return 'You must enter a value!';
+    }
+    return '';
   }
 }
