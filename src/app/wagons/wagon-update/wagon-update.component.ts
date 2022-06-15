@@ -47,7 +47,13 @@ export class WagonUpdateComponent implements OnInit {
 
     this.wagonForm = this.formBuilder.group({
       id: [''],
-      serial: ['', [Validators.required, Validators.maxLength(12)]],
+      serial: [
+        '',
+        {
+          validators: [Validators.required, Validators.maxLength(12)],
+          asyncValidators: this.serialValidator.serialValidatorFn(),
+        },
+      ],
       productionDate: [
         '',
         [
@@ -65,10 +71,7 @@ export class WagonUpdateComponent implements OnInit {
             Validators.maxLength(12),
             Validators.minLength(12),
           ],
-          asyncValidators: [
-            this.tracknumberValidator.tracknumberValidatorFn(),
-            this.serialValidator.serialValidatorFn(),
-          ],
+          asyncValidators: [this.tracknumberValidator.tracknumberValidatorFn()],
           updateOn: 'blur',
         },
       ],
@@ -123,6 +126,8 @@ export class WagonUpdateComponent implements OnInit {
       if (this.serial.hasError('required')) return 'You must enter a value!';
       if (this.serial.hasError('maxlength'))
         return 'You can enter at most 5 characters!';
+      if (this.serial.hasError('serial'))
+        return 'This serial is already exists!';
     }
     return '';
   }

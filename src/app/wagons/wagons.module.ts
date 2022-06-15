@@ -24,6 +24,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { SiteService } from '../service/site.service';
 import { TrackNumberValidator } from '../validators/tracknumber.validator';
+import { WagonSerialValidator } from '../validators/wagon-serial.validator';
 
 @NgModule({
   imports: [
@@ -54,6 +55,11 @@ import { TrackNumberValidator } from '../validators/tracknumber.validator';
     WagonCreateComponent,
     TracknumberPipe,
   ],
-  providers: [WagonService, SiteService, TrackNumberValidator],
+  providers: [
+    WagonService,
+    SiteService,
+    TrackNumberValidator,
+    WagonSerialValidator,
+  ],
 })
 export class WagonsModule {}

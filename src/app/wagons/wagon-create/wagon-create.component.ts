@@ -5,6 +5,7 @@ import { SiteService } from '../../service/site.service';
 import { WagonService } from '../../service/wagon.service';
 import { Site } from '../../sites/site/site';
 import { TrackNumberValidator } from '../../validators/tracknumber.validator';
+import { WagonSerialValidator } from '../../validators/wagon-serial.validator';
 import { Wagon } from '../wagon/wagon';
 
 @Component({
@@ -21,13 +22,20 @@ export class WagonCreateComponent implements OnInit {
     private router: Router,
     private wagonService: WagonService,
     private siteService: SiteService,
-    private tracknumberValidator: TrackNumberValidator
+    private tracknumberValidator: TrackNumberValidator,
+    private serialValidator: WagonSerialValidator
   ) {}
 
   ngOnInit() {
     this.wagonForm = this.formBuilder.group({
       id: '',
-      serial: ['', [Validators.required, Validators.maxLength(6)]],
+      serial: [
+        '',
+        {
+          validators: [Validators.required, Validators.maxLength(12)],
+          asyncValidators: this.serialValidator.serialValidatorFn(),
+        },
+      ],
       productionDate: [
         '',
         [
@@ -58,11 +66,13 @@ export class WagonCreateComponent implements OnInit {
 
   onCreate(wagon: Wagon) {
     wagon.status = true;
-    this.wagonService.createWagon(wagon).subscribe((res) => {
-      console.log('form submitted' + JSON.stringify(wagon));
-      this.wagonForm.reset();
-      alert('Update was successful!');
-      this.router.navigate(['/wagons']);
+    this.siteService.getSite(wagon.siteId).subscribe((site) => {
+      wagon.siteName = site.name;
+      this.wagonService.createWagon(wagon).subscribe((res) => {
+        this.wagonForm.reset();
+        alert('Update was successful!');
+        this.router.navigate(['/wagons']);
+      });
     });
   }
 
@@ -93,6 +103,8 @@ export class WagonCreateComponent implements OnInit {
       if (this.serial.hasError('required')) return 'You must enter a value!';
       if (this.serial.hasError('maxlength'))
         return 'You can enter at most 5 characters!';
+      if (this.serial.hasError('serial'))
+        return 'This serial is already exists!';
     }
     return '';
   }

@@ -15,7 +15,7 @@ export class WagonSerialValidator {
   serialValidatorFn(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       return this.wagonService.serialExists(control.value).pipe(
-        map((exists) => (exists ? { eventName: true } : null)),
+        map((exists) => (exists ? { serial: true } : null)),
         catchError(() => of(null))
       );
     };
