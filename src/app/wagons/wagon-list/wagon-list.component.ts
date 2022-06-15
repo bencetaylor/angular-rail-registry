@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WagonService } from '../../service/wagon.service';
 import { Wagon } from '../wagon/wagon';
 import { TracknumberPipe } from '../../pipes/tracknumber.pipe';
 import { SiteService } from '../../service/site.service';
 import { switchMap } from 'rxjs/operators';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface PeriodicElement {
   serial: string;
@@ -27,6 +29,7 @@ export class WagonListComponent implements OnInit {
   displayedColumns: string[] = ['serial', 'trackNr', 'siteId', 'actions'];
   $wagons: Observable<Wagon[]>;
   wagons: any[];
+  matTableDatasource;
   showDeleted: boolean = false;
   sites: any[];
 
@@ -35,10 +38,16 @@ export class WagonListComponent implements OnInit {
     this.$wagons.subscribe((result) => {
       this.wagons = result.filter((wagon) => wagon.status);
     });
+
   }
 
   ngOnInit() {
     this.initializeWagons();
+    this.matTableDatasource = new MatTableDataSource(this.wagons);
+  }
+
+  ngAfterViewInit() {    
+    this.matTableDatasource.sort = this.empTbSort
   }
 
   onDelete(wagon: Wagon): void {
@@ -50,4 +59,32 @@ export class WagonListComponent implements OnInit {
       this.wagons = res;
     });
   }
+
+  @ViewChild('empTbSort') empTbSort = new MatSort();
+
+  // sortWagons(sort: Sort) {
+  //   const data = this.wagons.slice();
+  //   if (!sort.active || sort.direction === '') {
+  //     this.wagons = data;
+  //     return;
+  //   }
+
+  //   this.wagons = data.sort((a, b) => {
+  //     const isAsc = sort.direction === 'asc';
+  //     switch (sort.active) {
+  //       case 'serial':
+  //         return compare(a.serial, b.serial, isAsc);
+  //       case 'trackNr':
+  //         return compare(a.trackNr, b.trackNr, isAsc);
+  //       case 'siteId':
+  //         return compare(a.siteId, b.siteId, isAsc);
+  //       default:
+  //         return 0;
+  //     }
+  //   });
+  // }
 }
+
+// function compare(a: number | string, b: number | string, isAsc: boolean) {
+//   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+// }
