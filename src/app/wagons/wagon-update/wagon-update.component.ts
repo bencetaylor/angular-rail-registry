@@ -7,6 +7,7 @@ import { Wagon } from '../wagon/wagon';
 import { TracknumberPipe } from '../../pipes/tracknumber.pipe';
 import { Site } from '../../sites/site/site';
 import { SiteService } from '../../service/site.service';
+import { TrackNumberValidator } from '../../validators/tracknumber.validator';
 
 @Component({
   selector: 'app-wagon-update',
@@ -23,7 +24,8 @@ export class WagonUpdateComponent implements OnInit {
     private route: ActivatedRoute,
     private wagonService: WagonService,
     private siteService: SiteService,
-    private router: Router /*private store: Store*/
+    private router: Router /*private store: Store*/,
+    private tracknumberValidator: TrackNumberValidator
   ) {}
 
   ngOnInit() {
@@ -42,8 +44,8 @@ export class WagonUpdateComponent implements OnInit {
     });
 
     this.wagonForm = this.formBuilder.group({
-      id: '',
-      serial: ['', [Validators.required, Validators.maxLength(50)]],
+      id: [''],
+      serial: ['', [Validators.required, Validators.maxLength(5)]],
       productionDate: [
         '',
         [
@@ -53,7 +55,16 @@ export class WagonUpdateComponent implements OnInit {
           ),
         ],
       ],
-      trackNr: ['', [Validators.required, Validators.maxLength(50)]],
+      trackNr: [
+        '',
+        {
+          validators: [ 
+            Validators.required, Validators.maxLength(14)
+          ],
+          asyncValidators: this.tracknumberValidator.tracknumberValidatorFn(),
+          updateOn: 'blur',
+        },
+      ],
       owner: ['', [Validators.required, Validators.maxLength(50)]],
       siteId: ['', [Validators.required]],
       status: '',
@@ -102,7 +113,7 @@ export class WagonUpdateComponent implements OnInit {
     if (this.serial.dirty || this.serial.touched) {
       if (this.serial.hasError('required')) return 'You must enter a value!';
       if (this.serial.hasError('maxlength'))
-        return 'You can enter at most 50 characters!';
+        return 'You can enter at most 5 characters!';
     }
     return '';
   }
@@ -131,6 +142,8 @@ export class WagonUpdateComponent implements OnInit {
     console.log('Debug wagon-update getProductionDateErrorMessage called');
     if (this.productionDate.dirty || this.productionDate.touched) {
       if (this.productionDate.hasError('required'))
+        return 'Please enter a date!';
+      if (this.productionDate.hasError('pattern'))
         return 'Please enter the date in YYYY-MM-DD format!';
     }
     return '';

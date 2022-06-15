@@ -25,7 +25,7 @@ export class WagonCreateComponent implements OnInit {
   ngOnInit() {
     this.wagonForm = this.formBuilder.group({
       id: '',
-      serial: ['', [Validators.required, Validators.maxLength(50)]],
+      serial: ['', [Validators.required, Validators.maxLength(6)]],
       productionDate: [
         '',
         [

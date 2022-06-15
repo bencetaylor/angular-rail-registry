@@ -12,10 +12,10 @@
 </mat-card>
 <table
   mat-table
-  matSort
-  [dataSource]="matTableDatasource"
-  #empTbSort="matSort"
+  [dataSource]="wagons"
   class="mat-elevation-z8"
+  matSort
+  (matSortChange)="sortWagons($event)"
 >
   <ng-container matColumnDef="serial">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Serial</th>
