@@ -8,6 +8,7 @@ import { switchMap } from 'rxjs/operators';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { WagonModel } from '../wagon/wagonModel';
 
 export interface PeriodicElement {
   serial: string;
@@ -27,8 +28,8 @@ export class WagonListComponent implements OnInit {
     private siteService: SiteService
   ) {}
 
-  displayedColumns: string[] = ['serial', 'trackNr', 'siteId', 'actions'];
-  $wagons: Observable<Wagon[]>;
+  displayedColumns: string[] = ['serial', 'trackNr', 'siteName', 'actions'];
+  $wagons: Observable<WagonModel[]>;
   wagons: any[];
   dataSource = new MatTableDataSource();
   showDeleted: boolean = false;
@@ -54,12 +55,11 @@ export class WagonListComponent implements OnInit {
 
   onDelete(wagon: Wagon): void {
     wagon.status = false;
-    this.$wagons = this.wagonService
-      .deleteWagon(wagon)
-      .pipe(switchMap((res) => this.wagonService.getWagons(this.showDeleted)));
-    this.$wagons.subscribe((res) => {
-      this.wagons = res;
-    });
+    this.wagonService.deleteWagon(wagon).subscribe(
+      (res) => (wagon = res),
+      (error) => console.log(error.message)
+    );
+    this.initializeWagons();
   }
 
   sortWagons(sort: Sort) {

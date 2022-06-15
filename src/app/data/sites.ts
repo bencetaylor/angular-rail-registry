@@ -18,5 +18,13 @@ export class SiteTable {
       zip: 2000,
       status: true,
     },
+    {
+      id: 3,
+      name: 'Celldömölk',
+      owner: 'MÁV',
+      address: 'Celldömölk',
+      zip: 9500,
+      status: false,
+    },
   ];
 }

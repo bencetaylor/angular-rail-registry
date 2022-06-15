@@ -1,14 +1,18 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { exhaustMap, Observable } from 'rxjs';
 import { Site } from '../sites/site/site';
 import { RequestService } from './request.service';
+import { WagonService } from './wagon.service';
 
 const SITE_URL = 'api/sites';
 
 @Injectable()
 export class SiteService {
-  constructor(private requestService: RequestService) {}
+  constructor(
+    private requestService: RequestService,
+    private wagonService: WagonService
+  ) {}
 
   getSites(): Observable<any> {
     const httpOptions = {
@@ -31,15 +35,16 @@ export class SiteService {
     return this.requestService.put(`${SITE_URL}/`, site);
   }
 
-  // deleteAuthor(author: Site): Observable<any> {
-  //   return this.booksService.getBooks().pipe(
-  //     exhaustMap((res) => {
-  //       if (res.filter((b) => b.authorId === author.id).length > 0) {
-  //         throw new Error('Cannot delete author!');
-  //       }
-  //       author = Object.assign({}, author, { deleted: true });
-  //       return this.updateAuthor(author);
-  //     })
-  //   );
-  // }
+  deleteSite(site: Site): Observable<any> {
+    console.log('Delete site');
+    return this.wagonService.getWagons(true).pipe(
+      exhaustMap((res) => {
+        if (res.filter((b) => b.siteId === site.id).length > 0) {
+          throw new Error('Cannot delete site!');
+        }
+        site = Object.assign({}, site, { status: false });
+        return this.updateSite(site);
+      })
+    );
+  }
 }

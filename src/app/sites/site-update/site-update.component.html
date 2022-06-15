@@ -6,7 +6,7 @@
   </a>
 </p>
 <form [formGroup]="siteForm" (ngSubmit)="onSubmit(siteForm.getRawValue())">
-  <div>
+  <div hidden>
     <mat-form-field appearance="outline">
       <mat-label>ID</mat-label>
       <input

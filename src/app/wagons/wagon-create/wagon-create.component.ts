@@ -52,7 +52,7 @@ export class WagonCreateComponent implements OnInit {
     });
 
     this.siteService.getSites().subscribe((res) => {
-      this.sites = res;
+      this.sites = res.filter((site) => site.status);
     });
   }
 
