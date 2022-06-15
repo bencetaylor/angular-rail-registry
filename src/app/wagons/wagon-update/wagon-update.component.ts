@@ -75,17 +75,20 @@ export class WagonUpdateComponent implements OnInit {
   }
 
   onSubmit(wagonData: any) {
-    this.wagonService.updateWagon(wagonData).subscribe(
-      (res) => {
-        this.wagon = res;
-        alert('Update was successful!');
-        this.router.navigate(['/wagons']);
-      },
-      (error) => {
-        alert('Update failed!');
-        console.log(error);
-      }
-    );
+    this.siteService.getSite(wagonData.siteId).subscribe((res) => {
+      wagonData.siteName = res.name;
+      this.wagonService.updateWagon(wagonData).subscribe(
+        (res) => {
+          this.wagon = res;
+          alert('Update was successful!');
+          this.router.navigate(['/wagons']);
+        },
+        (error) => {
+          alert('Update failed!');
+          console.log(error);
+        }
+      );
+    });
   }
 
   /* Validators */

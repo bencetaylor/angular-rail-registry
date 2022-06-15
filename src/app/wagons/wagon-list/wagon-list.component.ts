@@ -8,7 +8,6 @@ import { switchMap } from 'rxjs/operators';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { WagonModel } from '../wagon/wagonModel';
 
 export interface PeriodicElement {
   serial: string;
