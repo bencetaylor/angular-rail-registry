@@ -45,7 +45,7 @@ export class WagonUpdateComponent implements OnInit {
 
     this.wagonForm = this.formBuilder.group({
       id: [''],
-      serial: ['', [Validators.required, Validators.maxLength(5)]],
+      serial: ['', [Validators.required, Validators.maxLength(12)]],
       productionDate: [
         '',
         [
@@ -58,7 +58,11 @@ export class WagonUpdateComponent implements OnInit {
       trackNr: [
         '',
         {
-          validators: [Validators.required, Validators.maxLength(14)],
+          validators: [
+            Validators.required,
+            Validators.maxLength(12),
+            Validators.minLength(12),
+          ],
           asyncValidators: this.tracknumberValidator.tracknumberValidatorFn(),
           updateOn: 'blur',
         },
@@ -107,7 +111,6 @@ export class WagonUpdateComponent implements OnInit {
   /* Messages */
 
   getSerialErrorMessage() {
-    console.log('Debug wagon-update getSerialErrorMessage called');
     if (this.serial.dirty || this.serial.touched) {
       if (this.serial.hasError('required')) return 'You must enter a value!';
       if (this.serial.hasError('maxlength'))
@@ -117,7 +120,6 @@ export class WagonUpdateComponent implements OnInit {
   }
 
   getOwnerErrorMessage() {
-    console.log('Debug wagon-update getOwnerErrorMessage called');
     if (this.owner.dirty || this.owner.touched) {
       if (this.owner.hasError('required')) return 'You must enter a value!';
       if (this.owner.hasError('maxlength'))
@@ -127,11 +129,12 @@ export class WagonUpdateComponent implements OnInit {
   }
 
   getTrackNrErrorMessage() {
-    console.log('Debug wagon-update getTrackNrErrorMessage called');
     if (this.trackNr.dirty || this.trackNr.touched) {
       if (this.trackNr.hasError('required')) return 'You must enter a value!';
       if (this.trackNr.hasError('maxlength'))
-        return 'You can enter at most 50 characters!';
+        return 'You have to enter 12 digits!';
+      if (this.trackNr.hasError('minlength'))
+        return 'You have to enter 12 digits!';
       if (this.trackNr.hasError('trackNr'))
         return 'Track number checksum failed!';
     }
@@ -139,7 +142,6 @@ export class WagonUpdateComponent implements OnInit {
   }
 
   getProductionDateErrorMessage() {
-    console.log('Debug wagon-update getProductionDateErrorMessage called');
     if (this.productionDate.dirty || this.productionDate.touched) {
       if (this.productionDate.hasError('required'))
         return 'Please enter a date!';
@@ -150,7 +152,6 @@ export class WagonUpdateComponent implements OnInit {
   }
 
   getSiteIdErrorMessage() {
-    console.log('Debug wagon-list getSiteIdErrorMessage called');
     if (this.siteId.dirty || this.siteId.touched) {
       if (this.siteId.hasError('required')) return 'You must enter a value!';
     }

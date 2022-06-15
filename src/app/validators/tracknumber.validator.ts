@@ -32,6 +32,8 @@ export class TrackNumberValidator {
       }
 
       let newChecksum = ((sum % 10) - 10) * -1;
+      console.log(checksum);
+      console.log(newChecksum);
 
       let valid = checksum == newChecksum;
 
