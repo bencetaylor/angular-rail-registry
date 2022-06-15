@@ -6,4 +6,5 @@ export class Wagon {
   owner: string;
   siteId: number;
   status: boolean;
+  siteName?: string;
 }

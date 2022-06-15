@@ -1,4 +1,5 @@
 import { Wagon } from '../wagons/wagon/wagon';
+import { SiteTable } from './sites';
 
 export class WagonTable {
   public static wagons: Wagon[] = [
@@ -39,4 +40,10 @@ export class WagonTable {
       status: true,
     },
   ];
+
+  public static _wagons: Wagon[] = WagonTable.wagons.map((wagon) => {
+    const site = SiteTable.sites.find((a) => a.id === wagon.siteId);
+    wagon.siteName = site.name;
+    return wagon;
+  });
 }

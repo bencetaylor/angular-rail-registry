@@ -29,7 +29,7 @@ export class WagonListComponent implements OnInit {
   ) {}
 
   displayedColumns: string[] = ['serial', 'trackNr', 'siteName', 'actions'];
-  $wagons: Observable<WagonModel[]>;
+  $wagons: Observable<Wagon[]>;
   wagons: any[];
   dataSource = new MatTableDataSource();
   showDeleted: boolean = false;
@@ -76,7 +76,7 @@ export class WagonListComponent implements OnInit {
           return compare(a.serial, b.serial, isAsc);
         case 'trackNr':
           return compare(a.trackNr, b.trackNr, isAsc);
-        case 'siteId':
+        case 'siteName':
           return compare(a.siteId, b.siteId, isAsc);
         default:
           return 0;
