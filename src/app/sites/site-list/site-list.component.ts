@@ -77,7 +77,10 @@ export class SiteListComponent implements OnInit, AfterViewInit {
   onSiteSelect(siteId: any) {
     console.log('onSiteSelect');
     this.wagonService.getWagonsBySite(siteId).subscribe(
-      (res) => (this.wagons = res),
+      (res) => {
+        this.wagons = res;
+        console.log(res);
+      },
       (error) => console.log(error.message)
     );
   }

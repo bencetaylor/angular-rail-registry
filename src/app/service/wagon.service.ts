@@ -29,8 +29,8 @@ export class WagonService {
         'Content-Type': 'application/json',
       }),
     };
-    console.log('Filter wagons by sites');
-    return this.getWagons(true).pipe(filter((wagon) => wagon.siteId == siteId));
+    var url = `${WAGON_URL}/?siteId=${siteId}`;
+    return this.requestService.get<any>(url, httpOptions);
   }
 
   getWagon(wagonId: number): Observable<any> {
