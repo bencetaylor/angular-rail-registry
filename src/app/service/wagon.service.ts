@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { filter, map, Observable } from 'rxjs';
 import { Wagon } from '../wagons/wagon/wagon';
 import { RequestService } from './request.service';
 
@@ -21,6 +21,16 @@ export class WagonService {
       url = `${WAGON_URL}/?status=true`;
     }
     return this.requestService.get<any>(url, httpOptions);
+  }
+
+  getWagonsBySite(siteId: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    console.log('Filter wagons by sites');
+    return this.getWagons(true).pipe(filter((wagon) => wagon.siteId == siteId));
   }
 
   getWagon(wagonId: number): Observable<any> {

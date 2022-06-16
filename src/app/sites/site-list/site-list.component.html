@@ -74,9 +74,8 @@
         (click)="onSiteSelect(element.id)"
         aria-label="Reset"
         aria-hidden="false"
-        [disabled]="element.status"
       >
-        Show wagons
+        <mat-icon class="mat-18">list</mat-icon>
       </button>
     </td>
   </ng-container>
@@ -84,3 +83,5 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
+
+<div>{{ wagons }}</div>

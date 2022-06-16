@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Site } from '../site/site';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { WagonService } from '../../service/wagon.service';
 
 export interface PeriodicElement {
   id: number;
@@ -23,10 +24,15 @@ export class SiteListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['name', 'owner', 'address', 'zip', 'actions'];
   dataSource = new MatTableDataSource<Site>();
   selectedSite: number;
+  wagons: any;
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private siteService: SiteService, private store: Store) {}
+  constructor(
+    private siteService: SiteService,
+    private wagonService: WagonService,
+    private store: Store
+  ) {}
 
   initializeSites() {
     this.siteService.getSites().subscribe((res) => {
@@ -69,6 +75,10 @@ export class SiteListComponent implements OnInit, AfterViewInit {
   }
 
   onSiteSelect(siteId: any) {
-    this.selectedSite = siteId;
+    console.log('onSiteSelect');
+    this.wagonService.getWagonsBySite(siteId).subscribe(
+      (res) => (this.wagons = res),
+      (error) => console.log(error.message)
+    );
   }
 }
