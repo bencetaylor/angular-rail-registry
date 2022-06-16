@@ -6,12 +6,9 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Observable } from 'rxjs';
 import { WagonService } from '../../service/wagon.service';
 import { Wagon } from '../wagon/wagon';
 import { TracknumberPipe } from '../../pipes/tracknumber.pipe';
-import { SiteService } from '../../service/site.service';
-import { switchMap } from 'rxjs/operators';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -28,7 +25,7 @@ export interface PeriodicElement {
   templateUrl: './wagon-list.component.html',
   styleUrls: ['./wagon-list.component.css'],
 })
-export class WagonListComponent implements OnInit, AfterViewInit, OnChanges {
+export class WagonListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['serial', 'trackNr', 'siteName', 'actions'];
   dataSource = new MatTableDataSource<Wagon>();
   showDeleted: boolean = false;
@@ -36,29 +33,13 @@ export class WagonListComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  @Input() prefilter: number;
-
-  constructor(
-    private wagonService: WagonService,
-    private siteService: SiteService
-  ) {}
+  constructor(private wagonService: WagonService) {}
 
   initializeWagons() {
     this.wagonService.getWagons(this.showDeleted).subscribe(
-      (res) => {
-        this.dataSource.data = res;
-        if (this.prefilter) {
-          this.filterWagonsBySite(this.prefilter);
-        }
-      },
+      (res) => (this.dataSource.data = res),
       (error) => console.log(error.message)
     );
-  }
-
-  ngOnChanges(changes: any) {
-    if (changes.hasOwnProperty('prefilter')) {
-      this.filterWagonsBySite(this.prefilter);
-    }
   }
 
   ngOnInit() {
@@ -89,7 +70,7 @@ export class WagonListComponent implements OnInit, AfterViewInit, OnChanges {
 
   filterWagonsBySite(siteId: any) {
     this.dataSource.data = this.dataSource.data.filter(
-      (_wagon) => _wagon.siteId === Number(siteId)
+      (wagon) => wagon.siteId === Number(siteId)
     );
   }
 
