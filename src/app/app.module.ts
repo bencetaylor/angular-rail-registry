@@ -28,6 +28,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSortModule } from '@angular/material/sort/sort-module';
+import { WagonListComponent } from './wagons/wagon-list/wagon-list.component';
 
 // export interface AppState {
 //   eventsFeature: EventsFeatureState;

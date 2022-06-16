@@ -45,7 +45,7 @@
     <td
       mat-cell
       *matCellDef="let element"
-      (click)="filterWagonsBySite(element)"
+      (click)="filterWagonsBySite(element.siteId)"
     >
       {{ element.siteName }}
     </td>
@@ -54,17 +54,16 @@
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element">
       <button mat-flat-button [routerLink]="['/wagons/update', element.id]">
-        Edit
+        <mat-icon class="mat-18">edit</mat-icon>
       </button>
       <button
         mat-flat-button
-        color="warn"
         (click)="onDelete(element)"
         aria-label="Delete"
         aria-hidden="false"
         [disabled]="!element.status"
       >
-        Delete
+        <mat-icon class="mat-18">delete</mat-icon>
       </button>
     </td>
   </ng-container>

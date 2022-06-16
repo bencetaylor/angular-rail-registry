@@ -22,6 +22,7 @@ export interface PeriodicElement {
 export class SiteListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['name', 'owner', 'address', 'zip', 'actions'];
   dataSource = new MatTableDataSource<Site>();
+  selectedSite: number;
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -65,5 +66,9 @@ export class SiteListComponent implements OnInit, AfterViewInit {
 
   onFilter($event: any) {
     this.dataSource.filter = $event.target.value.trim().toLocaleLowerCase();
+  }
+
+  onSiteSelect(siteId: any) {
+    this.selectedSite = siteId;
   }
 }

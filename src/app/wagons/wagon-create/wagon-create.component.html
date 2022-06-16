@@ -9,30 +9,38 @@
 </p>
 <form [formGroup]="wagonForm" (ngSubmit)="onCreate(wagonForm.getRawValue())">
   <div hidden>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>ID</mat-label>
       <input matInput placeholder="id" formControlName="id" readonly />
       <mat-hint>Identifier</mat-hint>
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Serial</mat-label>
       <input matInput placeholder="serial" formControlName="serial" />
       <mat-hint>Type the serial</mat-hint>
+      <mat-spinner
+        matSuffix
+        *ngIf="serial.pending"
+        mode="indeterminate"
+        diameter="17"
+      ></mat-spinner>
+      <mat-icon matSuffix *ngIf="serial.valid">check</mat-icon>
       <mat-error *ngIf="serial.invalid">{{
         getSerialErrorMessage()
       }}</mat-error>
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Production date</mat-label>
       <input
         matInput
         placeholder="production date YYYY-MM-DD"
         formControlName="productionDate"
       />
+      <mat-icon matSuffix *ngIf="productionDate.valid">check</mat-icon>
       <mat-hint>Give the production date</mat-hint>
       <mat-error *ngIf="productionDate.invalid">{{
         getProductionDateErrorMessage()
@@ -40,9 +48,16 @@
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Track number</mat-label>
       <input matInput placeholder="track number" formControlName="trackNr" />
+      <mat-spinner
+        matSuffix
+        *ngIf="trackNr.pending"
+        mode="indeterminate"
+        diameter="17"
+      ></mat-spinner>
+      <mat-icon matSuffix *ngIf="trackNr.valid">check</mat-icon>
       <mat-error *ngIf="trackNr.invalid">{{
         getTrackNrErrorMessage()
       }}</mat-error>
@@ -50,21 +65,19 @@
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Owner</mat-label>
       <input matInput placeholder="owner" formControlName="owner" />
+      <mat-icon matSuffix *ngIf="owner.valid">check</mat-icon>
       <mat-error *ngIf="owner.invalid">{{ getOwnerErrorMessage() }}</mat-error>
       <mat-hint>Give the owner</mat-hint>
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Site</mat-label>
       <mat-select matInput placeholder="site id" formControlName="siteId">
         <ng-container *ngFor="let site of sites">
-          <!-- <mat-option *ngIf="site.is_deleted === false" [value]="site.id">{{
-        site.id
-      }}</mat-option> -->
           <mat-option [value]="site.id">
             {{ site.name }}
           </mat-option>

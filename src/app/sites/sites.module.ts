@@ -23,6 +23,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { CreateSiteComponent } from './create-site/create-site.component';
 import { WagonService } from '../service/wagon.service';
+import { WagonsModule } from '../wagons/wagons.module';
 
 @NgModule({
   imports: [

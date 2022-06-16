@@ -19,7 +19,7 @@
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Serial</mat-label>
       <input
         matInput
@@ -27,13 +27,14 @@
         formControlName="serial"
         [(ngModel)]="wagon.serial"
       />
+      <mat-icon matSuffix *ngIf="serial.valid">check</mat-icon>
       <mat-error *ngIf="serial.invalid">{{
         getSerialErrorMessage()
       }}</mat-error>
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Production date</mat-label>
       <input
         matInput
@@ -41,13 +42,14 @@
         formControlName="productionDate"
         [(ngModel)]="wagon.productionDate"
       />
+      <mat-icon matSuffix *ngIf="productionDate.valid">check</mat-icon>
       <mat-error *ngIf="productionDate.invalid">{{
         getProductionDateErrorMessage()
       }}</mat-error>
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Track number</mat-label>
       <input
         matInput
@@ -55,13 +57,20 @@
         formControlName="trackNr"
         [(ngModel)]="wagon.trackNr"
       />
+      <mat-spinner
+        matSuffix
+        *ngIf="trackNr.pending"
+        mode="indeterminate"
+        diameter="17"
+      ></mat-spinner>
+      <mat-icon matSuffix *ngIf="trackNr.valid">check</mat-icon>
       <mat-error *ngIf="trackNr.invalid">{{
         getTrackNrErrorMessage()
       }}</mat-error>
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Owner</mat-label>
       <input
         matInput
@@ -69,11 +78,12 @@
         formControlName="owner"
         [(ngModel)]="wagon.owner"
       />
+      <mat-icon matSuffix *ngIf="owner.valid">check</mat-icon>
       <mat-error *ngIf="owner.invalid">{{ getOwnerErrorMessage() }}</mat-error>
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Site</mat-label>
       <mat-select
         matInput
@@ -82,9 +92,6 @@
         [(ngModel)]="wagon.siteId"
       >
         <ng-container *ngFor="let site of sites">
-          <!-- <mat-option *ngIf="site.is_deleted === false" [value]="site.id">{{
-        site.id
-      }}</mat-option> -->
           <mat-option [value]="site.id">
             {{ site.name }}
           </mat-option>
@@ -94,7 +101,7 @@
     </mat-form-field>
   </div>
   <div>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Is active?</mat-label>
       <mat-select matInput formControlName="status" [(ngModel)]="wagon.status">
         <mat-option [value]="true">Yes</mat-option>

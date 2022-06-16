@@ -50,9 +50,9 @@ import { WagonSerialValidator } from '../validators/wagon-serial.validator';
   ],
   declarations: [
     WagonComponent,
-    WagonListComponent,
     WagonUpdateComponent,
     WagonCreateComponent,
+    WagonListComponent,
     TracknumberPipe,
   ],
   providers: [

@@ -39,7 +39,7 @@ export class TrackNumberValidator {
 
       return new Observable((observer) => {
         setInterval(() => {
-          observer.next(valid ? null : { trackNr: true });
+          observer.next(!valid ? { trackNr: true } : null);
         }, 2500);
       }).pipe(first());
     };

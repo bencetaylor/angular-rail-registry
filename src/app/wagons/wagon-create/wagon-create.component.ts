@@ -36,8 +36,8 @@ export class WagonCreateComponent implements OnInit {
         {
           validators: [
             Validators.required,
+            Validators.minLength(3),
             Validators.maxLength(12),
-            Validators.minLength(12),
           ],
           asyncValidators: this.serialValidator.serialValidatorFn(),
         },
@@ -62,7 +62,6 @@ export class WagonCreateComponent implements OnInit {
       owner: ['', [Validators.required, Validators.maxLength(50)]],
       siteId: ['', [Validators.required]],
       status: true,
-      // siteName: ['', [Validators.required]],
     });
 
     this.siteService.getSites().subscribe((res) => {
@@ -109,7 +108,9 @@ export class WagonCreateComponent implements OnInit {
     if (this.serial.dirty || this.serial.touched) {
       if (this.serial.hasError('required')) return 'You must enter a value!';
       if (this.serial.hasError('maxlength'))
-        return 'You can enter at most 5 characters!';
+        return 'You have to enter 3 to 12 characters!';
+      if (this.serial.hasError('minlength'))
+        return 'You have to enter 3 to 12 characters!';
       if (this.serial.hasError('serial'))
         return 'This serial is already exists!';
     }

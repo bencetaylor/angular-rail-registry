@@ -52,10 +52,9 @@ export class WagonUpdateComponent implements OnInit {
         {
           validators: [
             Validators.required,
+            Validators.minLength(3),
             Validators.maxLength(12),
-            Validators.minLength(12),
           ],
-          asyncValidators: this.serialValidator.serialValidatorFn(),
         },
       ],
       productionDate: [
