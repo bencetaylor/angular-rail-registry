@@ -17,6 +17,8 @@ export class WagonCreateComponent implements OnInit {
   wagonForm: FormGroup;
   sites: Site[];
 
+  IdGenerator: number = 5;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -32,7 +34,11 @@ export class WagonCreateComponent implements OnInit {
       serial: [
         '',
         {
-          validators: [Validators.required, Validators.maxLength(12)],
+          validators: [
+            Validators.required,
+            Validators.maxLength(12),
+            Validators.minLength(12),
+          ],
           asyncValidators: this.serialValidator.serialValidatorFn(),
         },
       ],
@@ -66,6 +72,7 @@ export class WagonCreateComponent implements OnInit {
 
   onCreate(wagon: Wagon) {
     wagon.status = true;
+    wagon.id = this.IdGenerator++;
     this.siteService.getSite(wagon.siteId).subscribe((site) => {
       wagon.siteName = site.name;
       this.wagonService.createWagon(wagon).subscribe((res) => {

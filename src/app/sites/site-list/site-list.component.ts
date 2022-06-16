@@ -45,7 +45,9 @@ export class SiteListComponent implements OnInit {
         site = res;
         this.initializeSites();
       },
-      (error) => console.log(error.message)
+      (error) => {
+        alert(error.message);
+      }
     );
   }
 
