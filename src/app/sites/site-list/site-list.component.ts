@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SiteService } from '../../service/site.service';
-import { Store, select } from '@ngrx/store';
-import { Observable, fromEvent } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Site } from '../site/site';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface PeriodicElement {
   id: number;
@@ -26,8 +26,8 @@ export class SiteListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  $sites: Observable<Site[]>;
-  sites: any[];
+  // $sites: Observable<Site[]>;
+  // sites: any[];
 
   constructor(private siteService: SiteService, private store: Store) {}
 
