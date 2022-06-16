@@ -38,7 +38,7 @@ export class WagonListComponent implements OnInit {
     this.$wagons = this.wagonService.getWagons(this.showDeleted);
     this.$wagons.subscribe((result) => {
       this.wagons = result;
-      console.log(this.wagons);
+      // console.log(this.wagons);
     });
   }
 
@@ -81,6 +81,16 @@ export class WagonListComponent implements OnInit {
           return 0;
       }
     });
+  }
+
+  filterWagonsBySite(wagon: any) {
+    this.wagons = this.wagons.filter(
+      (_wagon) => _wagon.siteId === Number(wagon.siteId)
+    );
+  }
+
+  resetFilters() {
+    this.initializeWagons();
   }
 }
 

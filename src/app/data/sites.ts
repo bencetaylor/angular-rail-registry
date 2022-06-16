@@ -15,7 +15,7 @@ export class SiteTable {
       name: 'Debrecen',
       owner: 'MÁV',
       address: 'Debrecen',
-      zip: 2000,
+      zip: 4000,
       status: true,
     },
     {
