@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WagonService } from '../../service/wagon.service';
 import { Wagon } from '../wagon/wagon';
@@ -21,33 +21,43 @@ export interface PeriodicElement {
   templateUrl: './wagon-list.component.html',
   styleUrls: ['./wagon-list.component.css'],
 })
-export class WagonListComponent implements OnInit {
+export class WagonListComponent implements OnInit, AfterViewInit {
+  displayedColumns: string[] = ['serial', 'trackNr', 'siteName', 'actions'];
+  dataSource = new MatTableDataSource<Wagon>();
+  showDeleted: boolean = false;
+  sites: any[];
+
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(
     private wagonService: WagonService,
     private siteService: SiteService
   ) {}
 
-  displayedColumns: string[] = ['serial', 'trackNr', 'siteName', 'actions'];
-  $wagons: Observable<Wagon[]>;
-  wagons: any[];
-  dataSource = new MatTableDataSource();
-  showDeleted: boolean = false;
-  sites: any[];
+  // $wagons: Observable<Wagon[]>;
+  // wagons: any[];
 
   initializeWagons() {
-    this.$wagons = this.wagonService.getWagons(this.showDeleted);
-    this.$wagons.subscribe((result) => {
-      this.wagons = result;
-      // console.log(this.wagons);
-    });
+    this.wagonService.getWagons(this.showDeleted).subscribe(
+      (res) => (this.dataSource.data = res),
+      (error) => console.log(error.message)
+    );
+    // this.$wagons = this.wagonService.getWagons(this.showDeleted);
+    // this.$wagons.subscribe((result) => {
+    //   this.wagons = result;
+    //   // console.log(this.wagons);
+    // });
   }
 
   ngOnInit() {
     this.initializeWagons();
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+
   showDeletedFn(event: MatCheckboxChange) {
-    console.log(event.checked);
     this.showDeleted = event.checked;
     this.initializeWagons();
   }
@@ -61,60 +71,62 @@ export class WagonListComponent implements OnInit {
     this.initializeWagons();
   }
 
-  sortWagons(sort: Sort) {
-    const data = this.wagons.slice();
-    if (!sort.active || sort.direction === '') {
-      this.wagons = data;
-      return;
-    }
+  // sortWagons(sort: Sort) {
+  //   const data = this.wagons.slice();
+  //   if (!sort.active || sort.direction === '') {
+  //     this.wagons = data;
+  //     return;
+  //   }
 
-    this.wagons = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'serial':
-          return compare(a.serial, b.serial, isAsc);
-        case 'trackNr':
-          return compare(a.trackNr, b.trackNr, isAsc);
-        case 'siteName':
-          return compare(a.siteId, b.siteId, isAsc);
-        default:
-          return 0;
-      }
-    });
-  }
+  //   this.wagons = data.sort((a, b) => {
+  //     const isAsc = sort.direction === 'asc';
+  //     switch (sort.active) {
+  //       case 'serial':
+  //         return compare(a.serial, b.serial, isAsc);
+  //       case 'trackNr':
+  //         return compare(a.trackNr, b.trackNr, isAsc);
+  //       case 'siteName':
+  //         return compare(a.siteId, b.siteId, isAsc);
+  //       default:
+  //         return 0;
+  //     }
+  //   });
+  // }
+
+  onFilter($event: any) {}
 
   filterWagonsBySite(wagon: any) {
-    this.wagons = this.wagons.filter(
+    this.dataSource.data = this.dataSource.data.filter(
       (_wagon) => _wagon.siteId === Number(wagon.siteId)
     );
   }
 
-  filter: string = '';
+  // filter: string = '';
 
-  doFilter(event: any) {
-    this.filter = event.target.value;
-    console.log('Debug: wagon-list searchFunction: ' + this.filter);
-    this.wagons = this.wagons.filter((e) => {
-      return (
-        e.serial.toLowerCase() === this.filter.toLowerCase() ||
-        e.serial.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
-        e.trackNr.toLowerCase() === this.filter.toLowerCase() ||
-        e.trackNr.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
-        e.siteName.toLowerCase() === this.filter.toLowerCase() ||
-        e.siteName.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
-      );
-    });
+  // doFilter(event: any) {
+  //   this.filter = event.target.value;
+  //   console.log('Debug: wagon-list searchFunction: ' + this.filter);
+  //   this.wagons = this.wagons.filter((e) => {
+  //     return (
+  //       e.serial.toLowerCase() === this.filter.toLowerCase() ||
+  //       e.serial.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
+  //       e.trackNr.toLowerCase() === this.filter.toLowerCase() ||
+  //       e.trackNr.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
+  //       e.siteName.toLowerCase() === this.filter.toLowerCase() ||
+  //       e.siteName.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+  //     );
+  //   });
 
-    if (this.filter === '') {
-      this.resetFilters();
-    }
-  }
+  //   if (this.filter === '') {
+  //     this.resetFilters();
+  //   }
+  // }
 
   resetFilters() {
     this.initializeWagons();
   }
 }
 
-function compare(a: number | string, b: number | string, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
+// function compare(a: number | string, b: number | string, isAsc: boolean) {
+//   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+// }

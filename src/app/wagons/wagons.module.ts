@@ -61,5 +61,6 @@ import { WagonSerialValidator } from '../validators/wagon-serial.validator';
     TrackNumberValidator,
     WagonSerialValidator,
   ],
+  exports: [MatSortModule],
 })
 export class WagonsModule {}
