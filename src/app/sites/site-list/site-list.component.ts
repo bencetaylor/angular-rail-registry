@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SiteService } from '../../service/site.service';
 import { Store, select } from '@ngrx/store';
 import { Observable, fromEvent } from 'rxjs';
 import { Site } from '../site/site';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 
 export interface PeriodicElement {
   id: number;
@@ -20,8 +20,11 @@ export interface PeriodicElement {
   templateUrl: './site-list.component.html',
   styleUrls: ['./site-list.component.css'],
 })
-export class SiteListComponent implements OnInit {
+export class SiteListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['name', 'owner', 'address', 'zip', 'actions'];
+  dataSource = new MatTableDataSource<Site>();
+
+  @ViewChild(MatSort) sort: MatSort;
 
   $sites: Observable<Site[]>;
   sites: any[];
@@ -29,9 +32,13 @@ export class SiteListComponent implements OnInit {
   constructor(private siteService: SiteService, private store: Store) {}
 
   initializeSites() {
-    this.$sites = this.siteService.getSites();
-    this.$sites.subscribe((result) => {
-      this.sites = result;
+    // this.$sites = this.siteService.getSites();
+    // this.$sites.subscribe((result) => {
+    //   this.sites = result;
+    // });
+
+    this.siteService.getSites().subscribe((res) => {
+      this.dataSource.data = res;
     });
   }
 
@@ -39,57 +46,61 @@ export class SiteListComponent implements OnInit {
     this.initializeSites();
   }
 
-  onDelete(site: Site) {
-    this.siteService.deleteSite(site).subscribe(
-      (res) => {
-        site = res;
-        this.initializeSites();
-      },
-      (error) => {
-        alert(error.message);
-      }
-    );
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
   }
 
-  onReset(site: Site) {
-    site.status = true;
-    this.siteService.updateSite(site).subscribe(
-      (res) => {
-        site = res;
-      },
-      (error) => console.log(error.message)
-    );
-  }
+  // onDelete(site: Site) {
+  //   this.siteService.deleteSite(site).subscribe(
+  //     (res) => {
+  //       site = res;
+  //       this.initializeSites();
+  //     },
+  //     (error) => {
+  //       alert(error.message);
+  //     }
+  //   );
+  // }
 
-  @ViewChild(MatTable) table: MatTable<PeriodicElement>;
+  // onReset(site: Site) {
+  //   site.status = true;
+  //   this.siteService.updateSite(site).subscribe(
+  //     (res) => {
+  //       site = res;
+  //     },
+  //     (error) => console.log(error.message)
+  //   );
+  // }
 
-  @ViewChild(MatSort) sort: MatSort;
+  // @ViewChild(MatTable) table: MatTable<PeriodicElement>;
 
-  sortData(sort: Sort) {
-    const data = this.sites.slice();
-    if (!sort.active || sort.direction === '') {
-      this.sites = data;
-      return;
-    }
+  // @ViewChild(MatSort) sort: MatSort;
 
-    this.sites = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'name':
-          return this.compare(a.name, b.name, isAsc);
-        case 'owner':
-          return this.compare(a.owner, b.owner, isAsc);
-        case 'address':
-          return this.compare(a.address, b.address, isAsc);
-        case 'code':
-          return this.compare(a.code, b.code, isAsc);
-        default:
-          return 0;
-      }
-    });
-  }
+  // sortData(sort: Sort) {
+  //   const data = this.sites.slice();
+  //   if (!sort.active || sort.direction === '') {
+  //     this.sites = data;
+  //     return;
+  //   }
 
-  private compare(a: number | string, b: number | string, isAsc: boolean) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  }
+  //   this.sites = data.sort((a, b) => {
+  //     const isAsc = sort.direction === 'asc';
+  //     switch (sort.active) {
+  //       case 'name':
+  //         return this.compare(a.name, b.name, isAsc);
+  //       case 'owner':
+  //         return this.compare(a.owner, b.owner, isAsc);
+  //       case 'address':
+  //         return this.compare(a.address, b.address, isAsc);
+  //       case 'code':
+  //         return this.compare(a.code, b.code, isAsc);
+  //       default:
+  //         return 0;
+  //     }
+  //   });
+  // }
+
+  // private compare(a: number | string, b: number | string, isAsc: boolean) {
+  //   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  // }
 }

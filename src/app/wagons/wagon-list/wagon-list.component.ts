@@ -89,6 +89,27 @@ export class WagonListComponent implements OnInit {
     );
   }
 
+  filter: string = '';
+
+  doFilter(event: any) {
+    this.filter = event.target.value;
+    console.log('Debug: wagon-list searchFunction: ' + this.filter);
+    this.wagons = this.wagons.filter((e) => {
+      return (
+        e.serial.toLowerCase() === this.filter.toLowerCase() ||
+        e.serial.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
+        e.trackNr.toLowerCase() === this.filter.toLowerCase() ||
+        e.trackNr.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 ||
+        e.siteName.toLowerCase() === this.filter.toLowerCase() ||
+        e.siteName.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0
+      );
+    });
+
+    if (this.filter === '') {
+      this.resetFilters();
+    }
+  }
+
   resetFilters() {
     this.initializeWagons();
   }

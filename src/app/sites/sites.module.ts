@@ -53,5 +53,6 @@ import { WagonService } from '../service/wagon.service';
     CreateSiteComponent,
   ],
   providers: [SiteService, WagonService],
+  exports: [MatSortModule],
 })
 export class SitesModule {}
