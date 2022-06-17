@@ -5,6 +5,7 @@ import { Site } from '../site/site';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { WagonService } from '../../service/wagon.service';
+import { Router } from '@angular/router';
 
 export interface PeriodicElement {
   id: number;
@@ -31,6 +32,7 @@ export class SiteListComponent implements OnInit, AfterViewInit {
   constructor(
     private siteService: SiteService,
     private wagonService: WagonService,
+    private router: Router,
     private store: Store
   ) {}
 
@@ -75,13 +77,16 @@ export class SiteListComponent implements OnInit, AfterViewInit {
   }
 
   onSiteSelect(siteId: any) {
+    this.router.navigate([`/wagons/?siteId=${siteId}`]);
     console.log('onSiteSelect');
-    this.wagonService.getWagonsBySite(siteId).subscribe(
-      (res) => {
-        this.wagons = res;
-        console.log(res);
-      },
-      (error) => console.log(error.message)
-    );
+    // this.wagonService.getWagons(true).subscribe(
+    //   (res) => {
+    //     this.wagons = JSON.stringify(
+    //       res.filter((wagon) => wagon.siteId == siteId)
+    //     );
+    //     alert(this.wagons);
+    //   },
+    //   (error) => console.log(error.message)
+    // );
   }
 }
