@@ -12,6 +12,7 @@ import { TracknumberPipe } from '../../pipes/tracknumber.pipe';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { ActivatedRoute } from '@angular/router';
 
 export interface PeriodicElement {
   serial: string;
@@ -30,10 +31,14 @@ export class WagonListComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Wagon>();
   showDeleted: boolean = false;
   sites: any[];
+  siteFilterId: number;
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private wagonService: WagonService) {}
+  constructor(
+    private wagonService: WagonService,
+    private route: ActivatedRoute
+  ) {}
 
   initializeWagons() {
     this.wagonService.getWagons(this.showDeleted).subscribe(
@@ -43,6 +48,12 @@ export class WagonListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      console.log(params);
+      this.siteFilterId = params.siteId;
+      console.log(this.siteFilterId);
+    });
+
     this.initializeWagons();
   }
 

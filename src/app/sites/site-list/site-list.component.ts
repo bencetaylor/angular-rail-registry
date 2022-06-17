@@ -77,8 +77,7 @@ export class SiteListComponent implements OnInit, AfterViewInit {
   }
 
   onSiteSelect(siteId: any) {
-    this.router.navigate([`/wagons/?siteId=${siteId}`]);
-    console.log('onSiteSelect');
+    this.router.navigate(['/wagons', siteId]);
     // this.wagonService.getWagons(true).subscribe(
     //   (res) => {
     //     this.wagons = JSON.stringify(
