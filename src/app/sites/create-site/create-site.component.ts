@@ -11,6 +11,7 @@ import { Site } from '../site/site';
 })
 export class CreateSiteComponent implements OnInit {
   siteForm: FormGroup;
+  IdGenerator: number = 4;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,6 +32,7 @@ export class CreateSiteComponent implements OnInit {
 
   onSubmit(site: Site) {
     site.status = true;
+    site.id = this.IdGenerator++;
     this.siteService.createSite(site).subscribe((res) => {
       alert('Create was successful!');
       this.siteForm.reset();

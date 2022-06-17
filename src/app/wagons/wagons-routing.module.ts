@@ -21,6 +21,10 @@ const routes: Routes = [
             component: WagonListComponent,
           },
           {
+            path: 'filter/:siteId',
+            component: WagonListComponent,
+          },
+          {
             path: 'update/:wagonId',
             component: WagonUpdateComponent,
           },

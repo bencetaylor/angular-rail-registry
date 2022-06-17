@@ -31,7 +31,6 @@ export class SiteListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private siteService: SiteService,
-    private wagonService: WagonService,
     private router: Router,
     private store: Store
   ) {}
@@ -77,15 +76,6 @@ export class SiteListComponent implements OnInit, AfterViewInit {
   }
 
   onSiteSelect(siteId: any) {
-    this.router.navigate(['/wagons', siteId]);
-    // this.wagonService.getWagons(true).subscribe(
-    //   (res) => {
-    //     this.wagons = JSON.stringify(
-    //       res.filter((wagon) => wagon.siteId == siteId)
-    //     );
-    //     alert(this.wagons);
-    //   },
-    //   (error) => console.log(error.message)
-    // );
+    this.router.navigate(['/wagons/filter', siteId]);
   }
 }
