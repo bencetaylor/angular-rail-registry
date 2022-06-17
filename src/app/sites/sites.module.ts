@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { SitesRoutingModule } from './sites-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -23,7 +24,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { CreateSiteComponent } from './create-site/create-site.component';
 import { WagonService } from '../service/wagon.service';
-import { WagonsModule } from '../wagons/wagons.module';
 
 @NgModule({
   imports: [

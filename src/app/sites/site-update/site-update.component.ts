@@ -79,7 +79,7 @@ export class SiteUpdateComponent implements OnInit {
 
   getNameErrorMessage() {
     if (this.name.dirty || this.name.touched) {
-      if (this.name.hasError('required')) return 'You must enter a value!';
+      if (this.name.hasError('required')) return 'Please enter a name!';
       if (this.name.hasError('maxlength'))
         return 'You can enter maximum 20 characters!';
     }
@@ -88,7 +88,7 @@ export class SiteUpdateComponent implements OnInit {
 
   getOwnerErrorMessage() {
     if (this.owner.dirty || this.owner.touched) {
-      if (this.owner.hasError('required')) return 'You must enter a value!';
+      if (this.owner.hasError('required')) return 'Please enter an owner!';
       if (this.owner.hasError('maxlength'))
         return 'You can enter maximum 20 characters!';
     }
@@ -97,7 +97,7 @@ export class SiteUpdateComponent implements OnInit {
 
   getAddressErrorMessage() {
     if (this.address.dirty || this.address.touched) {
-      if (this.address.hasError('required')) return 'You must enter a value!';
+      if (this.address.hasError('required')) return 'Please enter an address!';
       if (this.address.hasError('maxlength'))
         return 'You can enter maximum 20 characters!';
       if (this.address.hasError('trackNr'))
