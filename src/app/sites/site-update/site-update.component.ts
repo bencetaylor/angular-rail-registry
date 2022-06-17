@@ -60,4 +60,59 @@ export class SiteUpdateComponent implements OnInit {
       }
     );
   }
+
+  /* Validators */
+  get name() {
+    return this.siteForm.get('name');
+  }
+  get owner() {
+    return this.siteForm.get('owner');
+  }
+  get address() {
+    return this.siteForm.get('address');
+  }
+  get zip() {
+    return this.siteForm.get('zip');
+  }
+
+  /* Messages */
+
+  getNameErrorMessage() {
+    if (this.name.dirty || this.name.touched) {
+      if (this.name.hasError('required')) return 'You must enter a value!';
+      if (this.name.hasError('maxlength'))
+        return 'You can enter maximum 20 characters!';
+    }
+    return '';
+  }
+
+  getOwnerErrorMessage() {
+    if (this.owner.dirty || this.owner.touched) {
+      if (this.owner.hasError('required')) return 'You must enter a value!';
+      if (this.owner.hasError('maxlength'))
+        return 'You can enter maximum 20 characters!';
+    }
+    return '';
+  }
+
+  getAddressErrorMessage() {
+    if (this.address.dirty || this.address.touched) {
+      if (this.address.hasError('required')) return 'You must enter a value!';
+      if (this.address.hasError('maxlength'))
+        return 'You can enter maximum 20 characters!';
+      if (this.address.hasError('trackNr'))
+        return 'Track number checksum failed!';
+    }
+    return '';
+  }
+
+  getZipErrorMessage() {
+    if (this.zip.dirty || this.zip.touched) {
+      if (this.zip.hasError('required')) return 'Please enter a zip code!';
+      if (this.zip.hasError('maxlength') || this.zip.hasError('minlength'))
+        return 'Please enter exactly 4 digits';
+      if (this.zip.hasError('pattern')) return 'Please enter only numbers!';
+    }
+    return '';
+  }
 }

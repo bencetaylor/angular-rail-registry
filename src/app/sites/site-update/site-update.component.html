@@ -16,7 +16,6 @@
         [(ngModel)]="site.id"
         readonly
       />
-      <mat-hint>{{ site.id }}</mat-hint>
     </mat-form-field>
   </div>
   <div>
@@ -28,7 +27,8 @@
         formControlName="name"
         [(ngModel)]="site.name"
       />
-      <mat-hint>{{ site.name }}</mat-hint>
+      <mat-icon matSuffix *ngIf="name.valid">check</mat-icon>
+      <mat-error *ngIf="name.invalid">{{ getNameErrorMessage() }}</mat-error>
     </mat-form-field>
   </div>
   <div>
